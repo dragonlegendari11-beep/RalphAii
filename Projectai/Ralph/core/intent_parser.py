@@ -57,6 +57,18 @@ class IntentParser:
                 if name:
                     return Intent("create_project", {"name": name})
 
+        # ---------- Скриншот ----------
+
+        if "скриншот" in text or "снимок экрана" in text:
+            return Intent("screenshot")
+
+        # ---------- Громкость ----------
+
+        if "громкость" in text:
+            digits = "".join(ch for ch in text if ch.isdigit())
+            if digits:
+                return Intent("set_volume", {"percent": int(digits)})
+
         # ---------- Открыть программу ----------
 
         if "блокнот" in text:
