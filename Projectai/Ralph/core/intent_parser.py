@@ -47,6 +47,16 @@ class IntentParser:
                 if fact:
                     return Intent("remember_fact", {"fact": fact})
 
+        # ---------- Проекты ----------
+
+        project_triggers = ["создай проект"]
+
+        for trigger in project_triggers:
+            if trigger in text:
+                name = text.split(trigger, 1)[1].strip()
+                if name:
+                    return Intent("create_project", {"name": name})
+
         # ---------- Открыть программу ----------
 
         if "блокнот" in text:
