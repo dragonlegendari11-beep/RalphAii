@@ -1,7 +1,7 @@
 from core.ralph import Ralph
 
 from plugins.memory.plugin import MemoryPlugin
-from plugins.windows.plugin import WindowsPlugin
+from plugins.os_control.plugin import OSControlPlugin
 
 
 def main():
@@ -9,7 +9,7 @@ def main():
     ralph = Ralph()
 
     ralph.plugins.load(MemoryPlugin())
-    ralph.plugins.load(WindowsPlugin())
+    ralph.plugins.load(OSControlPlugin())
 
     memory = ralph.services.get("memory")
 
