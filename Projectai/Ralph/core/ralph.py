@@ -14,6 +14,18 @@ class Ralph:
 
         self.parser = IntentParser()
 
+        self.running = False
+
+    def start(self):
+        self.running = True
+        self.events.emit("start")
+        print("Ralph запущен.")
+
+    def stop(self):
+        self.running = False
+        self.events.emit("stop")
+        print("Ralph остановлен.")
+
     def chat(self, text: str):
 
         intent = self.parser.parse(text)
@@ -22,21 +34,16 @@ class Ralph:
         windows = self.services.get("windows")
 
         if intent.name == "get_name":
-
             return f"Тебя зовут {memory.recall('name')}."
 
         if intent.name == "set_name":
-
             name = intent.data["name"]
-
             memory.remember("name", name)
-
+            self.events.emit("name_changed", name)
             return f"Хорошо. Теперь тебя зовут {name}."
 
         if intent.name == "open_program":
-
             windows.run(intent.data["program"])
-
             return "Открываю."
 
         return (
